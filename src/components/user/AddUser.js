@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { connect } from 'react-redux'
 
 function AddUser({addUser}) {
   const [userId, setUserId] = useState('')
@@ -9,7 +10,7 @@ function AddUser({addUser}) {
     e.preventDefault()
 
     addUser({
-      userId,
+      userId: parseInt(userId),
       firstName,
       lastName
     })
@@ -38,4 +39,12 @@ function AddUser({addUser}) {
   )
 }
 
-export default AddUser
+const mapDispatchToProp = dispatch => {
+  return {
+    addUser: user => {
+      dispatch({type: 'ADD_USER', user})
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProp)(AddUser)

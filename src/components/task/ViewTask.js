@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 function ViewTask({selectedTask}) {
   return (
@@ -11,4 +12,10 @@ function ViewTask({selectedTask}) {
   )
 }
 
-export default ViewTask
+const mapStateToProp = state => {
+  return {
+    selectedTask: state.taskReducer.selectedTask
+  }
+}
+
+export default connect(mapStateToProp)(ViewTask)

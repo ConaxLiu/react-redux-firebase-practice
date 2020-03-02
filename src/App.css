@@ -26,4 +26,5 @@ li {
   background-color: lightgrey;
   margin:1px;
   padding: 2px;
+  cursor: pointer;
 }
