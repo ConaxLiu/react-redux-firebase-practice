@@ -23,7 +23,8 @@ function User() {
 
   return (
     <div id="users">
-      USERS
+      <p><b>User</b> component, containing <b>UserList</b>, <b>ViewUser</b>, and <b>AddUser</b> child components.</p>
+      <p>The data in the <b>ViewUser</b> component is updated when user hovers mouse over a user in the <b>UserList</b> component.</p>
       <UserList users={users} selectUser={setSelectedUser} />
       <ViewUser selectedUser={selectedUser} />
       <AddUser addUser={addUser}/>
