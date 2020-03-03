@@ -1,3 +1,6 @@
+The state management (useState hook) that comes with React requires the each component either manage its own state or have the state passed down from their parent component. This sometimes makes it difficult to manage the state especially in larger projects.
+
+Redux allows a central storage to store the state for the whole application, and each individual component can access the state themselves.
 
 ## **Step 1: Install Redux in a React App**
 
