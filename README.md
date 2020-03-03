@@ -57,7 +57,7 @@ ReactDOM.render(
 ); 
 ```
  
-When this is set up, the states in the store can then be accessed using **store.getState()**.
+When this is set up, the state in the store can then be accessed using **store.getState()**.
 
 ```javascript
 storeState = store.getState() 
@@ -65,7 +65,7 @@ taskState = storeState.taskReducer
 userState = storeState.userReducer 
 ```
 
-However, instead of calling **getState()** ourselves, the \<Provider> component that wraps the \<App> automatically subscribes to the state changes in the store, and so we can use the **connect()** HOC to automatically update components with new state. 
+However, instead of calling **getState()** ourselves, the \<Provider> component that wraps the \<App> component automatically subscribes to the state changes in the store, and so we can use the **connect()** HOC to automatically update components with new state. 
  
 ## **Step 4: Connect components to the Redux Store**
 
