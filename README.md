@@ -1,8 +1,8 @@
 
-## **Step 1: Setup Redux in a React App**
+## **Step 1: Install Redux in a React App**
 
 ```
-npm install redux react-redux.
+npm install redux react-redux
 ```
 
 ## **Step 2: Create Reducers**
@@ -57,7 +57,7 @@ To update the state in the Redux store, we need to dispatch actions. Actions are
 ```javascript
 {
   type: 'SELECT_TASK',
-  taskTitle: 'Task 1' // A user Id
+  taskTitle: 'Task 1'
 }
 ```
 
@@ -113,7 +113,8 @@ const mapStateToProp = state => {
   } 
 } 
 
-// Use mapDispatchToProp to pass a dispatch function to the component as a prop. Note that we are dispatching a task action creator function
+// Use mapDispatchToProp to pass a dispatch function to the component as a prop.
+// Note that we are dispatching a task action creator function
 const mapDispatchToProp = dispatch => { 
   return { 
     selectTask: taskTitle => dispatch(selectTaskAction(taskTitle)) 
