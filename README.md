@@ -1,68 +1,103 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## **Step 1: Setup Redux in a React App**
 
-In the project directory, you can run:
+```
+npm install redux react-redux.
+```
 
-### `npm start`
+## **Step 2: Create Reducers**
+Create the reducers that will be passed into the Redux store. 
+If multiple reducers are required, create a root reducer to combine the reducers together. 
+ 
+### **For single reducer**
+```javascript
+const taskReducer = (state = initTasks, action) => { 
+  switch(action.type) { 
+    case 'ADD_TASK': 
+      return { 
+        ...state, 
+        tasks: [...state.tasks, action.task] 
+      } 
+    default: 
+      return state 
+  } 
+} 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+export default taskReducer 
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### **For multiple reducers**
+```javascript
+import { combineReducers } from 'redux'; 
+import taskReducer from './taskReducer' 
+import userReducer from './userReducer' 
 
-### `npm test`
+const rootReducer = combineReducers ( 
+  { 
+    taskReducer, 
+    userReducer 
+  } 
+) 
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+export default rootReducer 
+```
 
-### `npm run build`
+## **Step 3: Create the Redux Store**
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```javascript
+import { createStore } from 'redux' 
+import { Provider } from 'react-redux'; 
+import rootReducer from './store/reducers/rootReducer' 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+const store = createStore(rootReducer); 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+ReactDOM.render( 
+  <Provider store={store}><App /></Provider>, 
+  document.getElementById('root') 
+); 
+```
+ 
+When this is set up, the states in the store can then be accessed using **store.getState()**.
 
-### `npm run eject`
+```javascript
+storeState = store.getState() 
+taskState = storeState.taskReducer 
+userState = storeState.userReducer 
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+However, instead of calling **getState()** ourselves, the \<Provider> component that wraps the \<App> automatically subscribes to the state changes in the store, and so we can use the **connect()** HOC to automatically update components with new state. 
+ 
+## **Step 4: Connect components to the Redux Store**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+For any component that needs to access the state in the store, either to read from the store or to dispatch an action to the store, use the **connect()** HOC: 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```javascript
+import { connect } from 'react-redux' 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+function TaskList({tasks, selectTask}) { 
+  // Component code goes here
+} 
 
-## Learn More
+// Use mapStateToProp to pass the state to the component as a prop 
+const mapStateToProp = state => { 
+  return { 
+    tasks: state.taskReducer.tasks 
+  } 
+} 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+// Use mapDispatchToProp to pass a dispatch function to the component as a prop 
+const mapDispatchToProp = dispatch => { 
+  return { 
+    selectTask: taskTitle => dispatch({
+      type: 'SELECT_TASK', 
+      taskTitle: taskTitle
+    }) 
+  } 
+} 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+export default connect(mapStateToProp, mapDispatchToProp)(TaskList) 
+```
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+ 
+ 
+ 
