@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { connect } from 'react-redux'
+import { addUserAction } from '../../store/actions/userActions'
 
 function AddUser({addUser}) {
   const [userId, setUserId] = useState('')
@@ -42,7 +43,7 @@ function AddUser({addUser}) {
 const mapDispatchToProp = dispatch => {
   return {
     addUser: user => {
-      dispatch({type: 'ADD_USER', user})
+      dispatch(addUserAction(user))
     }
   }
 }

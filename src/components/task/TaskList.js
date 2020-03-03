@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { selectTaskAction } from '../../store/actions/taskActions'
 
 function TaskList({tasks, selectTask} ) {
   let taskList = tasks.map(task => (
@@ -24,7 +25,7 @@ const mapStateToProp = state => {
 
 const mapDispatchToProp = dispatch => {
   return {
-    selectTask: taskTitle => dispatch({type: 'SELECT_TASK', taskTitle: taskTitle})
+    selectTask: taskTitle => dispatch(selectTaskAction(taskTitle))
   }
 }
 export default connect(mapStateToProp, mapDispatchToProp)(TaskList)

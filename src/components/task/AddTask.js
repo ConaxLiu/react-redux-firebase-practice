@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { connect } from 'react-redux'
+import { addTaskAction } from '../../store/actions/taskActions'
 
 function AddTask({addTask}) {
   const [title, setTitle] = useState('')
@@ -47,7 +48,7 @@ function AddTask({addTask}) {
 const mapDispatchToProp = dispatch => {
   return {
     addTask: task => {
-      dispatch({type: 'ADD_TASK', task})
+      dispatch(addTaskAction(task))
     }
   }
 }

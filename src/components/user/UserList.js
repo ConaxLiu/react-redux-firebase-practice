@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { selectUserAction } from '../../store/actions/userActions'
 
 function UserList({users, selectUser}) {
   let userList =  users.map(user => (
@@ -19,7 +20,7 @@ function UserList({users, selectUser}) {
 
 const mapDispatchToProp = dispatch => {
   return {
-    selectUser: userId => dispatch({type: 'SELECT_USER', userId})
+    selectUser: userId => dispatch(selectUserAction(userId))
   }
 }
 
